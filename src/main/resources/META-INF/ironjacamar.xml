@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ironjacamar>
+
+    <config-property name="ServerUrl">tcp://localhost:61616</config-property>
+    <config-property name="UseInboundSession">false</config-property>
+
+    <!-- see http://www.ironjacamar.org/doc/userguide/1.2/en-US/html_single/index.html -->
+
+    <!-- This defines the ConnectionFactory bindings for JNDI -->
+    <!-- You HAVE to use ManagedConnectionFactories here and you HAVE to disable
+        the definitions in the ra.xml except the basic ConnectionFactory -->
+    <connection-definitions>
+        <connection-definition
+                class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory"
+                jndi-name="java:jboss/jms/ActiveConnectionFactory" pool-name="QueueConnectionFactory">
+
+            <pool>
+                <min-pool-size>1</min-pool-size>
+                <max-pool-size>200</max-pool-size>
+                <prefill>false</prefill>
+            </pool>
+            <security>
+                <application/>
+            </security>
+            <timeout>
+                <blocking-timeout-millis>30000</blocking-timeout-millis>
+                <idle-timeout-minutes>3</idle-timeout-minutes>
+            </timeout>
+            <validation>
+                <background-validation>false</background-validation>
+                <use-fast-fail>false</use-fast-fail>
+            </validation>
+        </connection-definition>
+    </connection-definitions>
+</ironjacamar>
